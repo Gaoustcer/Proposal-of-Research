@@ -68,7 +68,7 @@
       \maketitle
         \begin{abstract}
 
-            \ifthenelse{\equal{en}{\lang}}{testen}{}
+            \ifthenelse{\equal{en}{\lang}}{}{}
             % ##########################################
             % # Include your Abstract here 
             % ######
@@ -93,7 +93,9 @@
             Generative Model has been used to generate fake data from the distribution of real data.
             Some impressive work has been done with data generation such as Generative Adversarial Network(GAN) and Variation Autoencoder(VAE).
             An universial idea of building a generative model is to map real data(such as images and texts) into latent variables which represent the information or cluster characteristic in latent space.
-             
+            Then we use latent variables from encoder as the parameter of the target distribution.Sampling from the target distribution will generate new data which retains features from origin data as well as contains differences compared with origin input. 
+            In order to use Gradient descent to optimize deep model,we need to design loss function predently.Generally the loss function is made up with two parts.The first one is difference with input,such as mseloss.Another one is KL divergence between latent distribution and a priority assumption.
+            If we give the first part a high priority,we will find that our model tends to "copy" input data into output data.This may result into leakage of training data.
             % ##########################################
 
         \end{abstract}
