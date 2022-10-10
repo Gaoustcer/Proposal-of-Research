@@ -60,11 +60,15 @@
         % # Your name goes here
         % ######
         % wWll, that should be obvious, right? 
-        Haihan Gao
+        Haihan Gao\\
+        Xiaolu Chen\\
+        Li Zhang
         % ##########################################
         }
     
     \begin{document}
+    
+    % \bibliographystyle{plain}
       \maketitle
         \begin{abstract}
 
@@ -102,10 +106,11 @@
         
         
         \sectionQuestions{\lang}
+        
         \sectionQuestionsDescription{\lang}
         
         \begin{description}[style=unboxed]
-            \item [\questionOne{\lang}] 
+            \item [\questionOne{\lang}] \vspace{\baselineskip}
                 % ##########################################
                 % # Question 1: What is the problem you want to address in your work? / 
                 %               Was ist das Problem, welches Sie in Ihrer Arbeit bearbeiten wollen?
@@ -130,10 +135,19 @@
                 % Please acknowledge: the answer to this question should not cover why the 
                 % problem is important or relevant to anyone (e.g. industry). This will 
                 % be addressed with the next question.
-                insert answer here
+                
+
+
+                Machine Learning Tasks,including regression,classification and other ML task
+                ,require a large amount of Training Data.Generally we collect data from real world.
+                In some specific scenarios,data is expensive and contains some privacy informations,such as human face and fingerprint.
+                An alternative solution to this problem is to build a model which adds noise with real data.This model is called generaitve model.
+                However,there is a tradeoff between data diversity and data utilization.Diversity means generative data should be different from real data.Suppose a extreme scenarios,
+                if the generative model only copy input images to output images,there will be little significance to introduce generative model.Utilization means the output should be able to  
+                train downstream model in order to achieve our goals,such as image classification.
                 % ##########################################
 
-            \item [\questionTwo{\lang}]
+            % \item [\questionTwo{\lang}]
                 % ##########################################
                 % # Question 2: Why is it a problem? / Warum ist es ein Problem?
                 % ######
@@ -155,7 +169,7 @@
                 %  -- which conditions need to be fulfilled for the problem to occur?
                 %  -- etc.
                 %  - describe the benefit of having the problem resolved
-                insert answer here
+                % insert answer here
                 % ##########################################
 
             \item [\questionThree{\lang}]
@@ -181,10 +195,17 @@
                 %  - if none of your ideas did not produce any usable solution, state 
                 %    so - these attempts are also results! By documenting them, it may 
                 %    prevent others from trying them as well. 
-                insert answer here
+                % insert answer here
                 % ##########################################
+                \par
+                Based on the work of differential privacy in deep learning,we add noise in gradient
+                when updating parameter of networks.GAN is consisted with Generative Net and Discrimination
+                Net and they are trained with a max-min loss.\\
+                According to the structure of GAN,the Discrimination net is removed after the whole net is well trained.
+                 only add noise when gradient is passed from Discrimination to Generative net.This well help us set better noise range $\epsilon$
 
-            \item [\questionFour{\lang}]
+
+            %\item [\questionFour{\lang}]
                 % ##########################################
                 % # Question 4: Why is it a solution? / Warum ist es eine Lösung?
                 % ######
@@ -209,13 +230,26 @@
                 %  - clearly state the shortcomings of your work
                 %  -- be hones and objective about your own work. 
                 %  -- In which cases/scenarios are your results applicable?
-                include answer here
+                % include answer here
                 % ##########################################
         \end{description}
         
         \sectionInitialTOC{\lang}
         \sectionInitialTOCDescription{\lang}
-        
+        \begin{enumerate}
+            \item{DP-SGD}
+            Training GANs with the DP-SGD method can be effective in generating high-dimensional sanitized data. However, DP-SGD relies on the clipping bound of gradient norm, i.e., the sensitivity value. Sensitivity values vary greatly with model architecture and training dynamics, which makes the implementation of DP-SGD difficult.
+            \item{PATE} 
+            Privatization of Teacher Aggregates (PATE) has recently been adapted to generative models. and two main approaches were studied: PATE-GAN and G-PATE. Both of these methods only train generators with DP guarantees, however, the gradients of G-PATE need to be manually selected to adapt to the PATE framework and secondly the high-dimensional nature of the PATE framework brings high privacy costs.
+            \item{Fed-Avg GAN}
+             Fed-Avg GAN is a solution to the decentralized case by using the DP-Fed-Avg algorithm to adapt GAN training to provide user-level DP guarantees under a trusted server. And it merely works on decentralized data.
+        \end{enumerate}
+        % DP-SGD. 
+% PATE. 
+% Fed-Avg GAN.
+% 3.5.	Preliminary scheme
+% We use a new gradient-sanitized Wasserstein GAN (GS-WGAN), which is capable of generating high-dimensional data with DP guarantees, in both centralized and decentralized datasets. In the decentralized case, user-level DP security is guaranteed under an untrusted server. And we evaluate our method on various datasets against other state-of-the-art approaches.
+ 
         % ##########################################
         % # Proposed table of contents
         % ######
@@ -230,20 +264,33 @@
         %  - a brief description of the proposed content of each section and subsection
         %    (1-3 sentences)
         % 
-        \begin{enumerate}
-            \item \textbf{Section 1 Name} insert brief description
-                    \begin{enumerate}
-                        \item \textbf{Subsection 1 Name} insert brief description
-                        \item \textbf{Subsection 2 Name} insert brief description
-                    \end{enumerate}
-            \item \textbf{Section 2 Name} insert brief description
-        \end{enumerate}
+        % \begin{enumerate}
+        %     \item \textbf{Section 1 Name} insert brief description
+        %             \begin{enumerate}
+        %                 \item \textbf{Subsection 1 Name} insert brief description
+        %                 \item \textbf{Subsection 2 Name} insert brief description
+        %             \end{enumerate}
+        %     \item \textbf{Section 2 Name} insert brief description
+        % \end{enumerate}
         % ##########################################
     
       
         \sectionSource{\lang}
         \sectionSourceDescription{\lang}
+        \begin{thebibliography}{99}
+            \bibitem{ref1} Abadi, Martin and Chu, Andy and Goodfellow, Ian and McMahan, H Brendan and Mironov, Ilya and Talwar, Kunal and Zhang, Li,Deep learning with differential privacy,Proceedings of the 2016 ACM SIGSAC conference on computer and communications security
+            \bibitem{ref2} Chen D, Orekondy T, Fritz M. Gs-wgan: A gradient-sanitized approach for learning differentially private generators[J]. Advances in Neural Information Processing Systems, 2020, 33: 12673-12684.
 
+        \end{thebibliography}
+
+        % \section{related work}
+    %     % \begin{thebibliography}{99}  
+    %     %     \bibitem{ref1}Zheng L, Wang S, Tian L, et al., Query-adaptive late fusion for image search and person re-identification, Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2015: 1741-1750.  
+    %     %     \bibitem{ref2}Arandjelović R, Zisserman A, Three things everyone should know to improve object retrieval, Computer Vision and Pattern Recognition (CVPR), 2012 IEEE Conference on, IEEE, 2012: 2911-2918.  
+    %     %     \bibitem{ref3}Lowe D G. Distinctive image features from scale-invariant keypoints, International journal of computer vision, 2004, 60(2): 91-110.  
+    %     %     \bibitem{ref4}Philbin J, Chum O, Isard M, et al. Lost in quantization: Improving particular object retrieval in large scale image databases, Computer Vision and Pattern Recognition, 2008. CVPR 2008, IEEE Conference on, IEEE, 2008: 1-8.  
+    %     % \end{thebibliography}
+    % \bibliography{bibfile}
         % ##########################################
         % # Overview of identified relevant work
         % ######
@@ -257,12 +304,13 @@
         %  - a brief descriptions of the source and a statement why this is relevant for 
         %    your work (1-2 sentences)
         % 
-        \begin{description}
-        \item[\cite{gruba_how_2017}] insert brief description
-        \item[\cite{zobel_writing_2015}] insert brief description
-        \end{description}
+        % \begin{description}
+        % \item[\cite{gruba_how_2017}] insert brief description
+        % \item[\cite{zobel_writing_2015}] insert brief description
+        % \end{description}
         % ##########################################
         
         
       \printbibliography
+    
     \end{document}
