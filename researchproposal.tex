@@ -60,9 +60,9 @@
         % # Your name goes here
         % ######
         % wWll, that should be obvious, right? 
-        Haihan Gao\\
-        Xiaolu Chen\\
-        Li Zhang
+        Haihan Gao,SA22011017\\
+        Xiaolu Chen,SA22221005\\
+        Li Zhang,SA22221064
         % ##########################################
         }
     
@@ -235,15 +235,25 @@
         \end{description}
         
         \sectionInitialTOC{\lang}
-        \sectionInitialTOCDescription{\lang}
-        \begin{enumerate}
-            \item{DP-SGD}
-            Training GANs with the DP-SGD method can be effective in generating high-dimensional sanitized data. However, DP-SGD relies on the clipping bound of gradient norm, i.e., the sensitivity value. Sensitivity values vary greatly with model architecture and training dynamics, which makes the implementation of DP-SGD difficult.
-            \item{PATE} 
-            Privatization of Teacher Aggregates (PATE) has recently been adapted to generative models. and two main approaches were studied: PATE-GAN and G-PATE. Both of these methods only train generators with DP guarantees, however, the gradients of G-PATE need to be manually selected to adapt to the PATE framework and secondly the high-dimensional nature of the PATE framework brings high privacy costs.
-            \item{Fed-Avg GAN}
-             Fed-Avg GAN is a solution to the decentralized case by using the DP-Fed-Avg algorithm to adapt GAN training to provide user-level DP guarantees under a trusted server. And it merely works on decentralized data.
-        \end{enumerate}
+        % \sectionInitialTOCDescription{\lang}
+        Suppose $\mathcal F\subset \mathcal R^n$ represents data containing some semantic information,such as human hand-writing numbers.
+        Training data set $f$ is a subset of $\mathcal F$.
+        Now we want to generate another $q\in \mathcal R^n$ from noise $p\in \mathcal R^m$ that has similar semantic information with vector in $\mathcal F$.
+        GAN is composed with two networks:1. Generative Network $\mathcal G:\mathcal R^m\to \mathcal R^n$ and 2. Discriminator Network $\mathcal D:\mathcal R^n \to (0,1)$\\
+        Discriminator network $\mathcal D$ is used to identify the difference between generative data and real data.Its output is normalized from 0 to 1 to represent the possibility that input data is from real dataset rather than from generator  
+        \subsection{Train process of GAN}
+        It is consisted with two processes of training.
+        \subsubsection{Make $\mathcal D$ be able to identify real data}
+        Sample k data from real dataset $f_1,f_2,\cdots,f_k\in f$ and send them to Discriminator $\mathcal D$.We want $\mathcal D$ differentiate them to be data with proper semantic information.
+        \begin{equation}
+            \max_{f^\prime \in f}E[D(f^\prime)]
+        \end{equation}
+        \subsubsection{Make $\mathcal D$ be able to identify fake data}
+        Now sample k random vector from $\mathcal R^n$,denoted as $v_1,v_2,\cdots,v_k$.Send them into Generator $\mathcal G$,we have $\hat v_i = G(v_i)$.We want our Discriminator $\mathcal D$ could differentiate $\hat v_i$ from real dataset.
+        \begin{equation}
+            \min_{v\in \mathcal R^n} E[G(v)]
+        \end{equation}
+        
         % DP-SGD. 
 % PATE. 
 % Fed-Avg GAN.
@@ -277,6 +287,14 @@
       
         \sectionSource{\lang}
         \sectionSourceDescription{\lang}
+        \begin{enumerate}
+            \item{DP-SGD}
+            Training GANs with the DP-SGD method can be effective in generating high-dimensional sanitized data. However, DP-SGD relies on the clipping bound of gradient norm, i.e., the sensitivity value. Sensitivity values vary greatly with model architecture and training dynamics, which makes the implementation of DP-SGD difficult.
+            \item{PATE} 
+            Privatization of Teacher Aggregates (PATE) has recently been adapted to generative models. and two main approaches were studied: PATE-GAN and G-PATE. Both of these methods only train generators with DP guarantees, however, the gradients of G-PATE need to be manually selected to adapt to the PATE framework and secondly the high-dimensional nature of the PATE framework brings high privacy costs.
+            \item{Fed-Avg GAN}
+             Fed-Avg GAN is a solution to the decentralized case by using the DP-Fed-Avg algorithm to adapt GAN training to provide user-level DP guarantees under a trusted server. And it merely works on decentralized data.
+        \end{enumerate}
         \begin{thebibliography}{99}
             \bibitem{ref1} Abadi, Martin and Chu, Andy and Goodfellow, Ian and McMahan, H Brendan and Mironov, Ilya and Talwar, Kunal and Zhang, Li,Deep learning with differential privacy,Proceedings of the 2016 ACM SIGSAC conference on computer and communications security
             \bibitem{ref2} Chen D, Orekondy T, Fritz M. Gs-wgan: A gradient-sanitized approach for learning differentially private generators[J]. Advances in Neural Information Processing Systems, 2020, 33: 12673-12684.
